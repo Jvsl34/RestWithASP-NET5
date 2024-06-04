@@ -1,19 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RestWithASPNET.Model.Context;
 using RestWithASPNET.Service;
 using RestWithASPNET.Services.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestWithASPNET
 {
@@ -33,6 +26,9 @@ namespace RestWithASPNET
 
             var connection = Configuration["SqlServerConnection:SqlServerConnectionString"];
             services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(connection));
+
+            // Versioning API
+            services.AddApiVersioning();
 
             //Dependency Injection
             services.AddScoped<IPersonService, PersonServiceImplementation>();
